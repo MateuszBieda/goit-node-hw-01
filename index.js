@@ -1,8 +1,5 @@
 const contacts = require("./contacts");
-//const argv = require("yargs").argv;
 
-//contacts.listContacts();
-//contacts.addContact("Jan Kowalski", "jkowalski@gmail.com", "(777) 888-8989");
 const { Command } = require("commander");
 const program = new Command();
 program
