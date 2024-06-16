@@ -6,6 +6,7 @@ const { isUtf8 } = require("buffer");
 
 const contactsPath = path.resolve("./db/contacts.json");
 
+
 // function listContacts() {
 //   fs.readFile(contactsPath)
 //     .then((data) => console.log(data.toString()))
