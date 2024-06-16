@@ -27,13 +27,19 @@ function removeContact(contactId) {
     .then((data) => {
       const contacts = JSON.parse(data);
       const updatedList = contacts.filter((contact) => contact.id != contactId);
-      console.log(updatedList);
+
+      fs.writeFile(contactsPath, JSON.stringify(updatedList, null, 2))
+        .then(() => {
+          console.log("Contact removed successfully.");
+          console.log(updatedList);
+        })
+        .catch((err) => console.log("Error writing file:", err.message));
     })
     .catch((err) => console.log(err.message));
 }
 
 async function addContact(name, email, phone) {
-  const data = await fs.readFile("./db/contacts.json", "utf-8");
+  const data = await fs.readFile(contactsPath, "utf-8");
   const contacts = JSON.parse(data);
 
   const newContact = {
@@ -43,12 +49,7 @@ async function addContact(name, email, phone) {
     phone: phone,
   };
   contacts.push(newContact);
-  await fs.writeFile(
-    "./db/contacts.json",
-    JSON.stringify(contacts, null, 2),
-    "utf-8"
-  );
+  await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2), "utf-8");
 }
-
 
 module.exports = { listContacts, getContactById, removeContact, addContact };
